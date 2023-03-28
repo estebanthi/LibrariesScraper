@@ -37,7 +37,9 @@ def get_requests(start_idx=0, end_idx=100, cookie=None, user_agent=None):
 
         req_books += r.json()['data']
         total_items = r.json()['found']
+
         start_idx += 100
+        end_idx = min(end_idx or total_items, total_items)
         keepGoing = start_idx < end_idx and start_idx < total_items
         print(f"{start_idx} of {total_items} items fetched")
 
