@@ -83,7 +83,7 @@ def convert_requests_to_book(req_books):
 def get_book_from_request(req_book):
     title = req_book['title']
     authors = get_authors_from_request(req_book)
-    language = req_book['lang_code']
+    language = get_language_from_request(req_book)
     release_year = get_release_year_from_request(req_book)
     link = None
     return book.Book(title, authors, language, release_year, link)
@@ -107,3 +107,7 @@ def get_release_year_from_request(req_book):
     except:
         pass
     return release_year
+
+
+def get_language_from_request(req_book):
+    return req_book['lang_code'][:2]

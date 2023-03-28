@@ -17,3 +17,6 @@ class Book:
         self.release_year = int(self.release_year) if self.release_year else None
         self.link = self.link.strip() if self.link else None
 
+    def __str__(self):
+        return f"{self.title} by {self.authors} ({self.language})"
+

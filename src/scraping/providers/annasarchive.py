@@ -37,7 +37,8 @@ class AnnasArchive(Provider):
 
     def parse_authors(self, book_el):
         authors_el = book_el.find("div", class_="truncate italic")
-        return [authors_el.text]
+        authors = authors_el.text.split("; ")
+        return authors
 
     def parse_release_year(self, book_el):
         publish_info_el = book_el.find("div", class_="truncate text-sm")
