@@ -20,3 +20,12 @@ class Book:
     def __str__(self):
         return f"{self.title} by {self.authors} ({self.language})"
 
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            title=data.get('title'),
+            authors=data.get('authors'),
+            language=data.get('language'),
+            release_year=data.get('release_year'),
+            link=data.get('link')
+        )
