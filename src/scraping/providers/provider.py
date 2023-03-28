@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from src.book import Book
 
 
-class Provider:
+class Provider(ABC):
 
     def search(self, query=None, ext=None, lang=None, content=None):
         pages_url = self.get_search_pages_url(query, ext, lang, content)

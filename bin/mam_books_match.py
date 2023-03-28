@@ -2,13 +2,14 @@ import time
 import json
 
 from src.scraping.providers.annasarchive import AnnasArchive
+from src.scraping.providers.pdfdrive import PdfDrive
 import src.scraping.scraper as scraper
 import src.matcher as matcher
 import src.mam as mam
 import src.json_encoder as json_encoder
 
 if __name__ == "__main__":
-    providers = [AnnasArchive()]
+    providers = [PdfDrive()]
     threshold = 0.8
     match_filepath = "out/matches.json"
 
