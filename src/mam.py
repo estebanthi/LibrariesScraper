@@ -2,6 +2,9 @@ import requests
 from requests_toolbelt import MultipartEncoder
 import time
 import json
+import datetime as dt
+
+import src.book as book
 
 
 def get_requests(start_idx=0, end_idx=100, cookie=None, user_agent=None):
@@ -63,3 +66,44 @@ def filter_requests(req_books, cat_name='Ebooks', filled=0, torsatch=0, lang_cod
 def save_requests(req_books, filepath='requests.json'):
     with open(filepath, 'w') as f:
         json.dump(req_books, f, indent=2)
+
+def load_requests(filepath='requests.json'):
+    with open(filepath, 'r') as f:
+        return json.load(f)
+
+
+def convert_requests_to_book(req_books):
+    books = []
+    for req_book in req_books:
+        book = get_book_from_request(req_book)
+        books.append(book)
+    return books
+
+
+def get_book_from_request(req_book):
+    title = req_book['title']
+    authors = get_authors_from_request(req_book)
+    language = req_book['lang_code']
+    release_year = get_release_year_from_request(req_book)
+    link = None
+    return book.Book(title, authors, language, release_year, link)
+
+
+def get_authors_from_request(req_book):
+    authors = []
+    try:
+        authors_json = json.loads(req_book['authors'])
+        authors = [v for k, v in authors_json.items()]
+    except:
+        pass
+    return authors
+
+
+def get_release_year_from_request(req_book):
+    release_year = None
+    try:
+        release_date = dt.datetime.strptime(req_book['releasedate'], '%Y-%m-%d')
+        release_year = release_date.year
+    except:
+        pass
+    return release_year
