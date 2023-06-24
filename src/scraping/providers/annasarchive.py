@@ -4,20 +4,20 @@ from src.book import Book
 
 class AnnasArchive(Provider):
 
-    def get_search_pages_url(self, query=None, ext=None, lang=None, content=None):
+    def _get_search_pages_url(self, query=None, ext=None, lang=None, content=None, pubyear=None):
         base_url = "https://annas-archive.org/search"
-        url = f"{base_url}?q={query or ''}"
+        url = f"{base_url}?q={query or ''}&ext={ext or ''}&lang={lang or ''}&content={content or ''}"
         return [url]
 
-    def find_books_elements(self, soup):
+    def _find_books_elements(self, soup):
         return soup.find_all("div", class_="h-[125]")
 
-    def parse_book(self, book_el):
-        link = self.parse_link(book_el)
-        title = self.parse_title(book_el)
-        authors = self.parse_authors(book_el)
-        release_year = self.parse_release_year(book_el)
-        language = self.parse_language(book_el)
+    def _parse_book(self, book_el):
+        link = self._parse_link(book_el)
+        title = self._parse_title(book_el)
+        authors = self._parse_authors(book_el)
+        release_year = self._parse_release_year(book_el)
+        language = self._parse_language(book_el)
 
         return Book(
             title=title,
@@ -27,20 +27,20 @@ class AnnasArchive(Provider):
             link=link,
         )
 
-    def parse_link(self, book_el):
+    def _parse_link(self, book_el):
         link_el = book_el.find("a")
         return "https://annas-archive.org" + link_el["href"]
 
-    def parse_title(self, book_el):
+    def _parse_title(self, book_el):
         title_el = book_el.find("h3", class_="truncate text-xl font-bold")
         return title_el.text
 
-    def parse_authors(self, book_el):
+    def _parse_authors(self, book_el):
         authors_el = book_el.find("div", class_="truncate italic")
         authors = authors_el.text.split("; ")
         return authors
 
-    def parse_release_year(self, book_el):
+    def _parse_release_year(self, book_el):
         publish_info_el = book_el.find("div", class_="truncate text-sm")
         parts = publish_info_el.text.split(", ")
 
@@ -53,7 +53,7 @@ class AnnasArchive(Provider):
 
         return year
 
-    def parse_language(self, book_el):
+    def _parse_language(self, book_el):
         book_meta_el = book_el.find("div", class_="relative top-[-1] pl-4 grow overflow-hidden")
         parts = book_meta_el.text.split(", ")
 
