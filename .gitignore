@@ -1,4 +1,5 @@
 out
-config.yml
+config.yaml
 .idea
 **.pyc
+data
