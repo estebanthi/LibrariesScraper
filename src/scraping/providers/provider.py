@@ -3,7 +3,7 @@ import urllib.parse
 import requests
 from bs4 import BeautifulSoup
 
-from src.book import Book
+from src.books.book import Book
 
 
 class Provider(ABC):

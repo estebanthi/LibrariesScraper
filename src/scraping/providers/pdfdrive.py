@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.scraping.providers.provider import Provider
-from src.book import Book
+from src.books.book import Book
 
 
 class PdfDrive(Provider):

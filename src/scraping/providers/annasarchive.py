@@ -1,5 +1,5 @@
 from src.scraping.providers.provider import Provider
-from src.book import Book
+from src.books.book import Book
 
 
 class AnnasArchive(Provider):

@@ -5,7 +5,7 @@ import json
 import datetime as dt
 import yaml
 
-import src.book as book
+import src.books.book as book
 
 
 class MyAnonamouse:
